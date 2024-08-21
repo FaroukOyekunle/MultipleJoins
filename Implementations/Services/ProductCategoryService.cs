@@ -20,8 +20,24 @@ namespace MultipleJoins.Implementations.Services
         public async Task<ProductCategory> GetByIdAsync(ObjectId id) =>
             await _repository.GetByIdAsync(id);
 
-        public async Task AddAsync(ProductCategory entity) =>
+        public async Task AddAsync(ProductCategory entity)
+        {
+            if (entity.Id == ObjectId.Empty)
+            {
+                entity.Id = ObjectId.GenerateNewId();
+            }
+
+            foreach (var product in entity.Products)
+            {
+                if (product.Id == ObjectId.Empty)
+                {
+                    product.Id = ObjectId.GenerateNewId();
+                }
+                product.ProductCategoryId = entity.Id;
+            }
+
             await _repository.AddAsync(entity);
+        }
 
         public async Task UpdateAsync(ObjectId id, ProductCategory entity) =>
             await _repository.UpdateAsync(id, entity);

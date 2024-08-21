@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using MultipleJoins.Interfaces.Services;
 using MultipleJoins.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -28,16 +29,16 @@ namespace MultipleJoins.Controllers
             Ok(await _productCategoryService.GetByIdAsync(ObjectId.Parse(id)));
 
         [HttpPost]
-        public async Task<IActionResult> CreateProductCategory([FromBody] ProductCategory productCategcory)
+        public async Task<IActionResult> CreateProductCategory([FromBody] ProductCategory productCategory)
         {
-            await _productCategoryService.AddAsync(productCategcory);
-            return CreatedAtAction(nameof(GetProductCategory), new { id = productCategcory.Id.ToString() }, productCategcory);
+            await _productCategoryService.AddAsync(productCategory);
+            return CreatedAtAction(nameof(GetProductCategory), new { id = productCategory.Id.ToString() }, productCategory);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProductCategory(string id, [FromBody] ProductCategory productCategcory)
+        public async Task<IActionResult> UpdateProductCategory(string id, [FromBody] ProductCategory productCategory)
         {
-            await _productCategoryService.UpdateAsync(ObjectId.Parse(id), productCategcory);
+            await _productCategoryService.UpdateAsync(ObjectId.Parse(id), productCategory);
             return NoContent();
         }
 

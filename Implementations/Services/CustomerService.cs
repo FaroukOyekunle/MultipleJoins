@@ -12,7 +12,7 @@ namespace MultipleJoins.Implementations.Services
     {
         private readonly ICustomerRepository _repository;
 
-        public CustomerService(ICustomerRepository repository)
+        public CustomerService(CustomerRepository repository)
         {
             _repository = repository;
         }

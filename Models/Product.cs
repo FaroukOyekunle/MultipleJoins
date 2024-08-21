@@ -10,5 +10,7 @@ namespace MultipleJoins.Models
         public string Name { get; set; }
         public decimal Price { get; set; }
         public ObjectId ProductCategoryId { get; set; }
+        [BsonIgnore]
+        public ProductCategory ProductCategory { get; set; }
     }
 }

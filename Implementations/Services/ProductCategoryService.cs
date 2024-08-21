@@ -2,6 +2,7 @@
 using MultipleJoins.Interfaces.Repositories;
 using MultipleJoins.Interfaces.Services;
 using MultipleJoins.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -20,11 +21,52 @@ namespace MultipleJoins.Implementations.Services
         public async Task<ProductCategory> GetByIdAsync(ObjectId id) =>
             await _repository.GetByIdAsync(id);
 
-        public async Task AddAsync(ProductCategory entity) =>
-            await _repository.AddAsync(entity);
+        public async Task AddAsync(ProductCategory entity)
+        {
+            if (entity.Id == ObjectId.Empty)
+            {
+                entity.Id = ObjectId.GenerateNewId();
+            }
 
-        public async Task UpdateAsync(ObjectId id, ProductCategory entity) =>
+            foreach (var product in entity.Products)
+            {
+                if (product.Id == ObjectId.Empty)
+                {
+                    product.Id = ObjectId.GenerateNewId();
+                }
+                product.ProductCategoryId = entity.Id;
+            }
+
+            await _repository.AddAsync(entity);
+        }
+
+        public async Task UpdateAsync(ObjectId id, ProductCategory entity)
+        {
+            var existingCategory = await GetByIdAsync(id);
+            if (existingCategory is null)
+            {
+                throw new KeyNotFoundException("ProductCategory not found.");
+            }
+
+            entity.Id = existingCategory.Id;
+
+            foreach (var product in entity.Products)
+            {
+                if (product.ProductCategoryId == ObjectId.Empty || product.Id == ObjectId.Empty)
+                {
+                    product.ProductCategoryId = product.ProductCategoryId == ObjectId.Empty
+                        ? ObjectId.GenerateNewId()
+                        : product.ProductCategoryId;
+
+                    product.Id = product.Id == ObjectId.Empty
+                        ? ObjectId.GenerateNewId()
+                        : product.Id;
+                }
+            }
+
             await _repository.UpdateAsync(id, entity);
+        }
+
 
         public async Task DeleteAsync(ObjectId id) =>
             await _repository.DeleteAsync(id);

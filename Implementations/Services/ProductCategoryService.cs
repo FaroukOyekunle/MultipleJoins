@@ -39,8 +39,32 @@ namespace MultipleJoins.Implementations.Services
             await _repository.AddAsync(entity);
         }
 
-        public async Task UpdateAsync(ObjectId id, ProductCategory entity) =>
+        public async Task UpdateAsync(ObjectId id, ProductCategory entity)
+        {
+            var existingCategory = await GetByIdAsync(id);
+            if (existingCategory is null)
+            {
+                throw new KeyNotFoundException("ProductCategory not found.");
+            }
+
+            entity.Id = existingCategory.Id;
+
+            foreach (var product in entity.Products)
+            {
+                if (product.ProductCategoryId == ObjectId.Empty || product.Id == ObjectId.Empty)
+                {
+                    product.ProductCategoryId = product.ProductCategoryId == ObjectId.Empty
+                        ? ObjectId.GenerateNewId()
+                        : product.ProductCategoryId;
+
+                    product.Id = product.Id == ObjectId.Empty
+                        ? ObjectId.GenerateNewId()
+                        : product.Id;
+                }
+            }
+
             await _repository.UpdateAsync(id, entity);
+        }
 
         public async Task DeleteAsync(ObjectId id) =>
             await _repository.DeleteAsync(id);

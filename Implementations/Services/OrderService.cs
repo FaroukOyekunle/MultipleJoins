@@ -25,6 +25,24 @@ namespace MultipleJoins.Implementations.Services
         public async Task AddAsync(Order entity) =>
             await _repository.AddAsync(entity);
 
+        public async Task AddAsync(Order entity)
+          {
+            if (entity.Id == ObjectId.Empty)
+            {
+                entity.Id = ObjectId.GenerateNewId();
+            }
+        
+            foreach (var orderItem in entity.OrderItems)
+            {
+                if (orderItem.Id == ObjectId.Empty)
+                {
+                    orderItem.Id = ObjectId.GenerateNewId();
+                }
+                orderItem.OrderId = entity.Id;
+            }
+            await _repository.AddAsync(entity);
+        }
+        
         public async Task UpdateAsync(ObjectId id, Order entity) =>
             await _repository.UpdateAsync(id, entity);
 

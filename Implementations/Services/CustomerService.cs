@@ -1,10 +1,10 @@
 ﻿using MongoDB.Bson;
+using MultipleJoins.Models;
+using System.Threading.Tasks;
 using MultipleJoins.Implementations.Repositories;
 using MultipleJoins.Interfaces.Repositories;
 using MultipleJoins.Interfaces.Services;
-using MultipleJoins.Models;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace MultipleJoins.Implementations.Services
 {

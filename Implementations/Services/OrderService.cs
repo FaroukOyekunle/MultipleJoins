@@ -1,9 +1,9 @@
 ﻿using MongoDB.Bson;
+using MultipleJoins.Models;
+using System.Threading.Tasks;
 using MultipleJoins.Interfaces.Repositories;
 using MultipleJoins.Interfaces.Services;
-using MultipleJoins.Models;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace MultipleJoins.Implementations.Services
 {
@@ -22,8 +22,8 @@ namespace MultipleJoins.Implementations.Services
         public async Task<Order> GetByIdAsync(ObjectId id) =>
             await _repository.GetByIdAsync(id);
 
-        public async Task AddAsync(Order entity) =>
-            await _repository.AddAsync(entity);
+        /*public async Task AddAsync(Order entity) =>
+            await _repository.AddAsync(entity);*/
 
         public async Task AddAsync(Order entity)
           {

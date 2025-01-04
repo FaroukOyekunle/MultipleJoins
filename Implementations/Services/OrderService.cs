@@ -1,9 +1,9 @@
 ﻿using MongoDB.Bson;
 using MultipleJoins.Models;
 using System.Threading.Tasks;
-using MultipleJoins.Interfaces.Repositories;
-using MultipleJoins.Interfaces.Services;
 using System.Collections.Generic;
+using MultipleJoins.Interfaces.Services;
+using MultipleJoins.Interfaces.Repositories;
 
 namespace MultipleJoins.Implementations.Services
 {

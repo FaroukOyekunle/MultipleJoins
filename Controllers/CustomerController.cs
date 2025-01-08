@@ -1,11 +1,11 @@
 using MongoDB.Bson;
 using MultipleJoins.Models;
 using System.Threading.Tasks;
-﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MultipleJoins.Implementations.Services;
-using MultipleJoins.Interfaces.Services;
+﻿using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
+using MultipleJoins.Interfaces.Services;
+using MultipleJoins.Implementations.Services;
 
 namespace MultipleJoins.Controllers
 {

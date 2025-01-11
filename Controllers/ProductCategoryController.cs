@@ -1,9 +1,9 @@
+using System;
+using MongoDB.Bson;
+using MultipleJoins.Models;
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Bson;
 using MultipleJoins.Interfaces.Services;
-using MultipleJoins.Models;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

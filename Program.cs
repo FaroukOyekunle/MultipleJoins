@@ -1,7 +1,7 @@
+using MongoDB.Driver;
+using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using MongoDB.Driver;
 using MultipleJoins.Implementations.Repositories;
 using MultipleJoins.Implementations.Services;
 using MultipleJoins.Interfaces.Repositories;
